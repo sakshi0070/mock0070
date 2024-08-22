@@ -1,0 +1,49 @@
+
+sudo apt-get install python3-pip
+sudo chmod -R 777 /usr/local/lib/python3.4
+pip3 install mysql-connector
+
+
+
+default python is pointintg to python 2 .. changing its pointer to python3
+
+sudo rm /usr/bin/python
+sudo ln /usr/bin/python3.4 /usr/bin/python
+
+===================
+
+gopalkrishna@ubuntu:~/hivefiles$ python
+Python 3.4.3 (default, Nov 12 2018, 22:25:49) 
+[GCC 4.8.4] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mysql.connector
+>>> database = mysql.connector.connect(host="localhost",user="root",password="root",database="batch1")
+
+>>> cursorObject = database.cursor()
+>>> query = "SELECT eno,ename FROM emp"
+>>> cursorObject.execute(query)
+>>> 
+>>> mysqlresult = cursorObject.fetchall()
+>>> 
+>>> mysqlresult
+[(1, 'Rajesh'), (2, 'Rajesh1'), (4, 'Ramesh')]
+>>> 
+>>> 
+
+
+=======================
+
+
+to run finally ==>
+spark-submit --py-files python_mysql.py spark-driver-prog.py
+
+OR 
+
+spark-submit spark-driver-prog.py
+
+----------------------
+  things we can pass along with spark-submit command
+
+--conf ==> config things
+--files ==> any files other than progam files
+--py-files ==> dependent python files
